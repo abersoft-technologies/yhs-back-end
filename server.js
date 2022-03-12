@@ -1,60 +1,44 @@
-const express = require("express")
-const cors = require("cors")
+const express = require("express");
+const cors = require("cors");
 const app = express();
-const db = require("./app/models");
+const mongoose = require("mongoose");
+const auth = require("./app/helpers/jwt");
+const unless = require("express-unless");
+const users = require("./app/controllers/UserController");
+const errors = require("./app/helpers/errorHandler");
 const dbConfig = require("./app/db.config");
-const Role = db.role;
+const cookieSession = require("cookie-session");
 
+auth.authenticateToken.unless = unless;
+app.use(auth.authenticateToken.unless({
+  path: [
+    {url: '/users/login', methods: ["POST"]},
+    {url: '/users/signup', methods: ["POST"]},
+  ]
+}))
+
+
+mongoose.connect(dbConfig.connStr, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+const db = mongoose.connection;
+db.on('error', () => console.error.bind(console, 'connection error:'))
+db.once('open', () => console.log(`Connected to mongo at ${dbConfig.connStr}`))
+
+
+app.use(
+  cookieSession({
+    name: "YH-searcher",
+    secret: "COOKIE_SECRET",
+    httpOnly: true
+  })
+)
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-app.get("/", (req, res) => {
-    res.json({message: "Hello World!"})
-})
-
-db.mongoose
-    .connect(`${dbConfig.connStr}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }).then(() => {
-        console.log("Successfully connect to MongoDB.")
-        initial();
-    }).catch(err => {
-        console.error("Connection error", err);
-        process.exit()
-    });
-
-    function initial() {
-        Role.estimatedDocumentCount((err, count) => {
-          if (!err && count === 0) {
-            new Role({
-              name: "user"
-            }).save(err => {
-              if (err) {
-                console.log("error", err);
-              }
-              console.log("added 'user' to roles collection");
-            });
-            new Role({
-              name: "moderator"
-            }).save(err => {
-              if (err) {
-                console.log("error", err);
-              }
-              console.log("added 'moderator' to roles collection");
-            });
-            new Role({
-              name: "admin"
-            }).save(err => {
-              if (err) {
-                console.log("error", err);
-              }
-              console.log("added 'admin' to roles collection");
-            });
-          }
-        });
-    }
+app.use("/users", users)
+app.use(errors.errorHandler);
 
 
 
