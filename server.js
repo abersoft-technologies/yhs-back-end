@@ -40,7 +40,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/users", users, cors())
 app.use(errors.errorHandler);
 
-
+app.use("/", (res, req) => res.send({message: "Connected"}) )
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
