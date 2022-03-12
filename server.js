@@ -37,7 +37,7 @@ app.use(
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use("/users", users)
+app.use("/users", users, cors())
 app.use(errors.errorHandler);
 
 

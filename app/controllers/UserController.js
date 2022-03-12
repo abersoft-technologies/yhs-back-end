@@ -28,7 +28,7 @@ router.post('/login', (req, res, next) => {
     const { username, password} = req.headers;
     userServices.login({ username, password})
         .then(user => {
-            res.json(user)
+            res.send("success", user)
         }
     ).catch(err => next(err))
 })
