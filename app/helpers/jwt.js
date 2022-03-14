@@ -15,10 +15,16 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(username) {
-    return jwt.sign({data: username}, process.env.ACCESS_TOKEN_SECRET)
+    return jwt.sign({data: username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "15m"})
+}
+
+function generateRefreshAccessToken(username) {
+    return jwt.sign({data: username}, process.env.REFRESH_TOKEN)
+
 }
 
 module.exports = {
     authenticateToken,
-    generateAccessToken
+    generateAccessToken,
+    generateRefreshAccessToken
 }

@@ -8,10 +8,10 @@ router.post('/signup', (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     // req.body.password = bcrypt.hashSync(password, salt);
     const user = {
-        name: req.headers.name,
-        username: req.headers.username,
-        email: req.headers.email,
-        password: req.headers.password,
+        name: req.body.name,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
         date: Date.now()
     }
 
@@ -25,8 +25,8 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', (req, res, next) => {
-    const username = req.headers.username;
-    const password = req.headers.password;
+    const username = req.body.username;
+    const password = req.body.password;
     userServices.login({ username, password})
         .then(user => {
             console.log(user)
