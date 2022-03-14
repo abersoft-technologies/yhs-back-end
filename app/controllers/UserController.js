@@ -25,10 +25,12 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', (req, res, next) => {
-    const { username, password} = req.headers;
+    const username = req.headers.username;
+    const password = req.headers.password;
     userServices.login({ username, password})
         .then(user => {
-            res.send("success", user)
+            console.log(user)
+            res.send({message: "Success"})
         }
     ).catch(err => next(err))
 })

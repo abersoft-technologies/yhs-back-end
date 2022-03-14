@@ -9,6 +9,8 @@ const errors = require("./app/helpers/errorHandler");
 const dbConfig = require("./app/db.config");
 const cookieSession = require("cookie-session");
 
+app.use(cors());
+
 auth.authenticateToken.unless = unless;
 app.use(auth.authenticateToken.unless({
   path: [
@@ -27,22 +29,20 @@ db.on('error', () => console.error.bind(console, 'connection error:'))
 db.once('open', () => console.log(`Connected to mongo at ${dbConfig.connStr}`))
 
 
-app.use(
-  cookieSession({
-    name: "YH-searcher",
-    secret: "COOKIE_SECRET",
-    httpOnly: true
-  })
-)
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use("/users", users, cors())
+app.use("/users", users)
 app.use(errors.errorHandler);
 
-app.use("/", (res, req) => res.send({message: "Connected"}) )
+app.get("/", (req, res) => {
+  res.send({message: "Hello!"})
+} )
 
 const PORT = process.env.PORT || 8080;
+app.listen(80, () => {
+  console.log('Enable on port 80')
+
+})
 app.listen(PORT, () => {
     console.log(`Server is running at PORT: ${PORT}`)
 });

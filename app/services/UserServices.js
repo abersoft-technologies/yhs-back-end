@@ -5,6 +5,11 @@ const auth = require('../helpers/jwt')
 
 async function login({ username, password }) {
     const user = await User.findOne({username});
+    console.log(user)
+
+    if(!user) {
+        return res.send({message: "Something went wrong..."})
+    }
 
     // synchronously compare user entered password with hashed password
     if(bcrypt.compareSync(password, user.password)){
