@@ -15,10 +15,8 @@ router.post('/signup', (req, res, next) => {
         date: Date.now()
     }
 
-    console.log("user", user)
-
     userServices.signup(user).then(
-        () => res.send('success')
+        () => res.status(200).send(user)
     ).catch(
         err => next(err)
     )
@@ -29,10 +27,9 @@ router.post('/login', (req, res, next) => {
     const password = req.body.password;
     userServices.login({ username, password})
         .then(user => {
-            console.log(user)
-            res.send({message: "Success"})
+            res.status(200).json(user);
         }
-    ).catch(err => next(err))
+    ).catch(err => console.log(err))
 })
 
 router.get('/:id', (req, res, next) => {
