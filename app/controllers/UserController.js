@@ -16,7 +16,10 @@ router.post('/signup', (req, res, next) => {
     }
 
     userServices.signup(user).then(
-        () => res.status(200).send(user)
+        () => {
+            delete user.password
+            res.status(200).send(user)
+        }
     ).catch(
         err => next(err)
     )

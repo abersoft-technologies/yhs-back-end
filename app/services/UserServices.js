@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const auth = require('../helpers/jwt')
 
 
-async function login({ username, password }) {
-    const user = await User.findOne({ username });
+async function login({ email, password }) {
+    const user = await User.findOne({ email });
     console.log(user)
     if(password !== user.password) {
         return console.log("Password does not match")
