@@ -8,10 +8,10 @@ const User = require('../models/usermodal')
 router.post('/signup', (req, res, next) => {
     const { password } = req.body
     const salt = bcrypt.genSaltSync(10);
-    const userExist = await User.findOne(req.body.email);
-    if(userExist) {
-        return res.status(404).send({message: "Email is already in use"})
-    }
+    // const userExist = await User.findOne(req.body.email);
+    // if(userExist) {
+    //     return res.status(404).send({message: "Email is already in use"})
+    // }
     // req.body.password = bcrypt.hashSync(password, salt);
     const user = {
         firstName: req.body.firstName,
