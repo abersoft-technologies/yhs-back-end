@@ -20,8 +20,8 @@ async function login({ username, password }) {
 
     //     // call toJSON method applied during model instantiation
     return {
-        name: user.name,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         password: user.password,
         date: user.date
