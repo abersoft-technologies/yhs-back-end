@@ -23,7 +23,6 @@ async function login({ username, password }) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        password: user.password,
         date: user.date
     };
     // }
