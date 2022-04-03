@@ -11,7 +11,7 @@ async function login({ email, password }) {
     }
 
     if(!user) {
-        return console.log("Something is wrong", user)
+        return res.send({message: "Something is wrong"})
     }
 
     // synchronously compare user entered password with hashed password
