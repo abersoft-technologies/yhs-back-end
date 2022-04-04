@@ -28,21 +28,18 @@ async function login({ email, password }) {
     // }
 }
 
-async function signup({ firstName, lastName, email, password, date }){
-    const existingUser = await User.findOne({ email });
+async function signup(params){
+    const existingUser = await User.findOne({email: params.email});
+    const userWithPassowrd = await User.findOne({password: params.password});
 
-    if(existingUser) {
-        console.log("Hejsan")
+
+    if(existingUser || userWithPassowrd) {
         return null;
-    } else if(existingUser.email !== email) {
+    } else if(!existingUser && !userWithPassowrd) {
         // instantiate a user modal and save to mongoDB
-        const user = new User({
-        firstName,
-        lastName,
-        email,
-        password,
-        date })
+        const user = new User(params)
         await user.save();
+        return user;
     }
 }
 

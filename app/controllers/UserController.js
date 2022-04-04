@@ -16,16 +16,14 @@ router.post('/signup', async (req, res, next) => {
         password: req.body.password,
         date: Date.now()
     }
-    try {
-        const result = await userServices.signup(user)
-        console.log(result)
-        if(!result ){
+
+    await userServices.signup(user).then(user => {
+        if(!user) {
             return res.status(400).json({message: 'User already exists!'})
         }
         res.status(200).send(user)
-    } catch (error) {
-        console.error(error)
-    }
+    }).catch(err => console.log(err))
+
 })
 
 router.post('/login', (req, res, next) => {
