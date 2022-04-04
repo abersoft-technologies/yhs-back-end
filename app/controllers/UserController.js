@@ -5,13 +5,9 @@ const userServices = require('../services/UserServices')
 const User = require('../models/usermodal')
 
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async (req, res, next) => {
     const { password } = req.body
     const salt = bcrypt.genSaltSync(10);
-    // const userExist = await User.findOne(req.body.email);
-    // if(userExist) {
-    //     return res.status(404).send({message: "Email is already in use"})
-    // }
     // req.body.password = bcrypt.hashSync(password, salt);
     const user = {
         firstName: req.body.firstName,
@@ -20,15 +16,16 @@ router.post('/signup', (req, res, next) => {
         password: req.body.password,
         date: Date.now()
     }
-
-    userServices.signup(user).then(
-        () => {
-            delete user.password
-            res.status(200).send(user)
+    try {
+        const result = await userServices.signup(user)
+        console.log(result)
+        if(!result ){
+            return res.status(400).json({message: 'User already exists!'})
         }
-    ).catch(
-        err => next(err)
-    )
+        res.status(200).send(user)
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 router.post('/login', (req, res, next) => {
@@ -36,6 +33,9 @@ router.post('/login', (req, res, next) => {
     const password = req.body.password;
     userServices.login({ email, password})
         .then(user => {
+            if(!user) {
+                res.status(404).send({message: "Error"})
+            }
             res.status(200).json(user);
         }
     ).catch(err => console.log(err))

@@ -1,18 +1,18 @@
 const User = require('../models/usermodal')
 const bcrypt = require('bcryptjs');
-const auth = require('../helpers/jwt')
+const auth = require('../helpers/jwt');
+const res = require('express/lib/response');
 
 
 async function login({ email, password }) {
     const user = await User.findOne({ email });
-    console.log(user)
+    if(!user) {
+        return null;
+    }
     if(password !== user.password) {
-        return console.log("Password does not match")
+        return null;
     }
 
-    if(!user) {
-        return res.send({message: "Something is wrong"})
-    }
 
     // synchronously compare user entered password with hashed password
     // if(bcrypt.compareSync(password, user.password)){
@@ -28,13 +28,22 @@ async function login({ email, password }) {
     // }
 }
 
-async function signup(params){
-    // const existingUser = await User.findOne({ username });
-    // if(existingUser) return res.status(400).json({ email: "Email already exists" });
+async function signup({ firstName, lastName, email, password, date }){
+    const existingUser = await User.findOne({ email });
 
-    // instantiate a user modal and save to mongoDB
-    const user = new User(params)
-    await user.save();
+    if(existingUser) {
+        console.log("Hejsan")
+        return null;
+    } else if(existingUser.email !== email) {
+        // instantiate a user modal and save to mongoDB
+        const user = new User({
+        firstName,
+        lastName,
+        email,
+        password,
+        date })
+        await user.save();
+    }
 }
 
 async function getById(id) {
