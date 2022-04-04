@@ -4,11 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const auth = require('./app/helpers/jwt');
 const unless = require('express-unless');
-const users = require('./app/controllers/UserController');
 const errors = require('./app/helpers/errorHandler');
 const dbConfig = require('./app/db.config');
 const cookieSession = require('cookie-session');
 const jwt = require('jsonwebtoken');
+const routes = require('./app/routes');
 
 let tokens = [];
 
@@ -18,8 +18,8 @@ auth.authenticateToken.unless = unless;
 app.use(
   auth.authenticateToken.unless({
     path: [
-      { url: '/users/login', methods: ['POST'] },
-      { url: '/users/signup', methods: ['POST'] },
+      { url: '/auth/login', methods: ['POST'] },
+      { url: '/auth/signup', methods: ['POST'] },
     ],
   })
 );
@@ -34,12 +34,8 @@ db.once('open', () => console.log(`Connected to mongo at ${dbConfig.connStr}`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/users', users);
+app.use('/', routes);
 app.use(errors.errorHandler);
-
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello!' });
-});
 
 app.post('/token', (req, res) => {
   const refreshToken = req.body.token;
