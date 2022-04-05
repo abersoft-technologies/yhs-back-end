@@ -2,6 +2,7 @@ const { contactService } = require('../services');
 
 const addContact = async (req, res) => {
   const data = req.body;
+  console.log(data);
 
   try {
     const result = await contactService.addContact(data);
