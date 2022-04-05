@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
   const token = req.headers['x-access-token'];
-  console.log(req.headers);
-  console.log(token);
+  //   console.log(req.headers);
+  //   console.log(token);
   if (token === null) {
     return res.status(403).send({ message: 'Token not provided!' });
   }
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '15m',
+      expiresIn: '120m',
     });
     req.user = decoded.user;
     next();
@@ -22,7 +22,7 @@ function authenticateToken(req, res, next) {
 
 function generateAccessToken(email) {
   return jwt.sign({ user: { email } }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '15m',
+    expiresIn: '120m',
   });
 }
 

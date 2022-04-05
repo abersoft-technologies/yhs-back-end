@@ -16,8 +16,13 @@ const addContact = async (req, res) => {
   }
 };
 const getContactList = async (req, res) => {
+  const { limit, page, queryParams } = req.query;
   try {
-    const result = await contactService.getContactList();
+    const result = await contactService.getContactList(
+      limit,
+      page,
+      queryParams
+    );
     return res.status(200).json({
       status: 200,
       data: result,
