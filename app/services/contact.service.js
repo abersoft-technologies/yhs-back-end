@@ -36,7 +36,7 @@ const getContactList = async (limit = 3, page = 1, queryParam) => {
     const listData = {
       listValues: {
         page: page,
-        totalPages: Math.floor(totalCount / limit),
+        totalPages: Math.ceil(totalCount / limit),
         totalItemsFound: totalCount,
         totalItems: count,
         pageSize: limit,
