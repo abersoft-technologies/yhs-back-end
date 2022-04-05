@@ -15,6 +15,10 @@ const ContactSchema = new Schema({
   company: String,
   role: String,
   town: String,
+  status: {
+    type: String,
+    required: true,
+  },
   otherInfo: String,
   date: { type: Date, default: Date.now },
 });
