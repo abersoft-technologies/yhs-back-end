@@ -16,6 +16,25 @@ const addCorp = async (req, res) => {
     }
 }
 
+const getCorps = async (req, res) => {
+    const { limit, page, queryParams } = req.query;
+    try {
+        const result = await corpService.getCorps(
+            limit,
+            page,
+            queryParams
+        );
+        return res.status(200).json({
+            status: 200,
+            data: result,
+            message: "Successfully got all corps"
+        })
+    } catch(error) {
+        return res.status(400).json({ status: 400, message: error.message });
+    }
+}
+
 module.exports = {
     addCorp,
-  };
+    getCorps
+};
