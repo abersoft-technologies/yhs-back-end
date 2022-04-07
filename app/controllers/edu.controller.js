@@ -15,6 +15,25 @@ const addEdu = async (req, res) => {
     }
 }
 
+const getEdus = async (req, res) => {
+    const { limit, page, queryParams } = req.query;
+    try {
+        const result = await eduService.getEdus(
+            limit,
+            page,
+            queryParams
+        );
+        return res.status(200).json({
+            status: 200,
+            data: result,
+            message: "Successfully got all educations"
+        })
+    } catch(error) {
+        return res.status(400).json({ status: 400, message: error.message });
+    }
+}
+
 module.exports = {
-    addEdu
+    addEdu,
+    getEdus
 };
