@@ -2,6 +2,7 @@ const express = require('express');
 const authRoute = require('./auth.route');
 const contactRoute = require('./contact.route');
 const corpRoute = require('./corp.route');
+const eduRoute = require('./edu.route');
 
 
 const router = express.Router();
@@ -18,6 +19,10 @@ const defaultRoutes = [
   {
     path: '/corp',
     route: corpRoute,
+  },
+  {
+    path: '/edu',
+    route: eduRoute,
   },
 ];
 
