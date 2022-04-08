@@ -15,14 +15,16 @@ const getContactList = async (limit = 3, page = 1, queryParam) => {
   try {
     const skip = limit * (page - 1);
     const findObject = {
-      firstName: { $regex: queryParam, $options: 'i' },
-      lastName: { $regex: queryParam, $options: 'i' },
-      email: { $regex: queryParam, $options: 'i' },
-      phoneNumber: { $regex: queryParam, $options: 'i' },
-      company: { $regex: queryParam, $options: 'i' },
-      role: { $regex: queryParam, $options: 'i' },
-      town: { $regex: queryParam, $options: 'i' },
-      status: { $regex: queryParam, $options: 'i' },
+      $or: [
+        { firstName: { $regex: queryParam, $options: 'i' } },
+        { lastName: { $regex: queryParam, $options: 'i' } },
+        { email: { $regex: queryParam, $options: 'i' } },
+        { phoneNumber: { $regex: queryParam, $options: 'i' } },
+        { company: { $regex: queryParam, $options: 'i' } },
+        { role: { $regex: queryParam, $options: 'i' } },
+        { town: { $regex: queryParam, $options: 'i' } },
+        { status: { $regex: queryParam, $options: 'i' } },
+      ],
     };
 
     const contactList = await Contact.find(queryParam ? findObject : {})
