@@ -1,4 +1,6 @@
 const { Corporate } = require('../models');
+const { Contact } = require('../models');
+
 
 const addCorp = async (payload) => {
     try {
@@ -53,9 +55,27 @@ const getOneCorp = async (id) => {
     }
   };
 
+  const getContactsInCorp = async (corporate) => {
+    try {
+      const findObject =
+        {company: {$regex: `${corporate}`, $options: 'i'}}
+
+
+      const contacts = await Contact.find(findObject);
+      const data = {
+        contacts
+      }
+      return data;
+    }
+    catch(err) {
+      throw Error('Error while trying to fetch contacts');
+    }
+  }
+
 module.exports = {
     addCorp,
     getCorps,
-    getOneCorp
+    getOneCorp,
+    getContactsInCorp
 };
 

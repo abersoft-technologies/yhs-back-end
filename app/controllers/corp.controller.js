@@ -50,8 +50,25 @@ const getCorp = async (req, res) => {
     }
 }
 
+const getContactsInCorp = async (req, res) => {
+    const { corporate } = req.query;
+    try {
+        const result = await corpService.getContactsInCorp(
+            corporate
+        );
+        return res.status(200).json({
+            status: 200,
+            data: result,
+            message: "Successfully got contacts"
+        })
+    } catch(error) {
+        return res.status(400).json({ status: 400, message: error.message });
+    }
+}
+
 module.exports = {
     addCorp,
     getCorps,
-    getCorp
+    getCorp,
+    getContactsInCorp
 };
