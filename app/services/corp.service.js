@@ -39,8 +39,23 @@ const getCorps = async (limit = 3, page = 1, queryParam) => {
     }
   };
 
+
+const getOneCorp = async (id) => {
+    try {
+      const corp = await Corporate.findById(id);
+
+      const data = {
+        corp,
+      };
+      return data;
+    } catch (error) {
+      throw Error('Error while trying to fetch corporate');
+    }
+  };
+
 module.exports = {
     addCorp,
-    getCorps
+    getCorps,
+    getOneCorp
 };
 
