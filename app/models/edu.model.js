@@ -6,8 +6,20 @@ const EducationSchema = new Schema({
         type: String,
         required: true
     },
+    shortName: {
+        type: String,
+        required: true
+    },
     place: {
+        type: String,
+        required: true
+    },
+    managementList: {
         type: Array,
+        required: true
+    },
+    type: {
+        type: String,
         required: true
     }
 })
