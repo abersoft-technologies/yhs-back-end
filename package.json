@@ -4,7 +4,9 @@
   "description": "��#\u0000 \u0000y\u0000h\u0000s\u0000-\u0000b\u0000a\u0000c\u0000k\u0000-\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,13 @@
   "homepage": "https://github.com/abersoft-technologies/yhs-back-end#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-unless": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.4"
+    "mongoose": "^6.2.4",
+    "nodemon": "^2.0.15"
   }
 }
