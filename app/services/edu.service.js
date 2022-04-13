@@ -44,7 +44,21 @@ const getEdus = async (limit = 3, page = 1, queryParam) => {
   }
 };
 
+const getOneEdu = async (id) => {
+  try {
+    const edu = await Education.findById(id);
+
+    const data = {
+      edu,
+    };
+    return data;
+  } catch (error) {
+    throw Error('Error while trying to fetch corporate');
+  }
+};
+
 module.exports = {
   addEdu,
   getEdus,
+  getOneEdu
 };

@@ -29,7 +29,24 @@ const getEdus = async (req, res) => {
   }
 };
 
+const getOneEdu = async (req, res) => {
+  const { id } = req.query;
+    try {
+        const result = await eduService.getOneEdu(
+            id
+        );
+        return res.status(200).json({
+            status: 200,
+            data: result,
+            message: "Successfully got education"
+        })
+    } catch(error) {
+        return res.status(400).json({ status: 400, message: error.message });
+    }
+};
+
 module.exports = {
   addEdu,
   getEdus,
+  getOneEdu,
 };
