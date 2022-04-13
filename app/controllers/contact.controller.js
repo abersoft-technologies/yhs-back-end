@@ -16,12 +16,25 @@ const addContact = async (req, res) => {
   }
 };
 const getContactList = async (req, res) => {
-  const { limit, page, queryParams } = req.query;
+  const {
+    limit,
+    page,
+    queryParams,
+    filterStatus = '',
+    filterEdu = '',
+    filterTown = '',
+  } = req.query;
+  let filter = {};
+  filterStatus ? (filter.status = filterStatus) : null;
+  filterTown ? (filter.town = filterTown) : null;
+  filterEdu ? (filter.edu = filterEdu) : null;
+
   try {
     const result = await contactService.getContactList(
       limit,
       page,
-      queryParams
+      queryParams,
+      filter
     );
     return res.status(200).json({
       status: 200,

@@ -11,9 +11,12 @@ const addContact = async (payload) => {
     throw Error('Error while trying to add contact');
   }
 };
-const getContactList = async (limit = 3, page = 1, queryParam) => {
+const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
   try {
     const skip = limit * (page - 1);
+    let contactList, totalCount, filterOptions;
+
+    /* find contact by searchQuery string */
     const findObject = {
       $or: [
         { firstName: { $regex: queryParam, $options: 'i' } },
@@ -27,14 +30,25 @@ const getContactList = async (limit = 3, page = 1, queryParam) => {
       ],
     };
 
-    const contactList = await Contact.find(queryParam ? findObject : {})
-      .skip(skip)
-      .limit(limit);
-    const totalCount = await Contact.find(
-      queryParam ? findObject : {}
-    ).countDocuments();
-    const count = await Contact.countDocuments();
+    /* Check if filter is sent. If true use the and method to filter by filter settings */
+    if (filter) {
+      contactList = await Contact.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit)
+        .and(filter);
+      totalCount = await Contact.find(queryParam ? findObject : {})
+        .countDocuments()
+        .and(filter);
+    } else {
+      contactList = await Contact.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit);
+      totalCount = await Contact.find(
+        queryParam ? findObject : {}
+      ).countDocuments();
+    }
 
+    const count = await Contact.countDocuments();
     const listData = {
       listValues: {
         page: page,
