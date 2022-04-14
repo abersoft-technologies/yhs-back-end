@@ -65,7 +65,23 @@ const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
   }
 };
 
+const getContact = async (id) => {
+  try {
+    const contact = await Contact.findById(id);
+
+    const data = {
+      contact,
+    };
+    return data;
+  } catch (error) {
+    throw Error('Error while trying to fetch corporate');
+  }
+};
+
+
+
 module.exports = {
   addContact,
   getContactList,
+  getContact
 };
