@@ -1,3 +1,4 @@
+const { Contact } = require('../models');
 const { contactService } = require('../services');
 
 const addContact = async (req, res) => {
@@ -46,7 +47,25 @@ const getContactList = async (req, res) => {
   }
 };
 
+const getContact = async (req, res) => {
+  const { id } = req.query;
+
+  try {
+    const result = await contactService.getContact(
+      id
+    );
+    return res.status(200).json({
+        status: 200,
+        data: result,
+        message: "Successfully got contact"
+    })
+} catch(error) {
+    return res.status(400).json({ status: 400, message: error.message });
+}
+};
+
 module.exports = {
   addContact,
   getContactList,
+  getContact
 };
