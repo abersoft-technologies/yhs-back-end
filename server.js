@@ -20,6 +20,7 @@ app.use(
     path: [
       { url: '/auth/login', methods: ['POST'] },
       { url: '/auth/signup', methods: ['POST'] },
+      { url: '/refresh', methods: ['POST'] },
     ],
   })
 );
@@ -37,15 +38,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', routes);
 app.use(errors.errorHandler);
 
-app.post('/token', (req, res) => {
-  const refreshToken = req.body.token;
-  if (refreshToken === null) return res.status(401);
-  if (!tokens.includes(refreshToken)) return res.status(403);
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, user) => {
-    if (err) return res.status(403);
-    const accessToken = auth.generateAccessToken({ name: user.username });
-    res.json(accessToken);
-  });
+app.post('/refresh', (req, res) => {
+  const { email, refreshToken } = req.body;
+
+  // console.log(email, refreshToken);
+
+  const isValid = auth.verifyRefresh(email, refreshToken);
+
+  if (!isValid) {
+    return res
+      .status(401)
+      .json({ success: false, error: 'Invalid token, try login again' });
+  }
+  const accessToken = auth.generateAccessToken(email);
+
+  return res.status(200).json({ success: true, accessToken });
 });
 
 const PORT = process.env.PORT || 8080;

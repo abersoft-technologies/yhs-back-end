@@ -21,17 +21,30 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(email) {
-  return jwt.sign({ user: { email } }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '120m',
+  return jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '10m',
   });
 }
 
 function generateRefreshAccessToken(email) {
-  return jwt.sign({ user: { email } }, process.env.REFRESH_TOKEN);
+  return jwt.sign({ email }, process.env.REFRESH_TOKEN, {
+    expiresIn: '120min',
+  });
+}
+
+function verifyRefresh(email, token) {
+  try {
+    const decoded = jwt.verify(token, process.env.REFRESH_TOKEN);
+    return decoded.email === email;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 }
 
 module.exports = {
   authenticateToken,
   generateAccessToken,
   generateRefreshAccessToken,
+  verifyRefresh,
 };

@@ -13,8 +13,9 @@ const login = async (email, password) => {
     if (!isMatch) {
       throw Error('Invalid credentials');
     }
-    const token = auth.generateAccessToken(user);
-    return { token: token, user: user };
+    const accessToken = auth.generateAccessToken(email);
+    const refreshToken = auth.generateRefreshAccessToken(email);
+    return { accessToken, refreshToken, user: user };
   } catch (err) {
     console.log(err.message);
 
