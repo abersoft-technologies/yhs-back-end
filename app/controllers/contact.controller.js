@@ -28,7 +28,7 @@ const getContactList = async (req, res) => {
   let filter = {};
   filterStatus ? (filter.status = filterStatus) : null;
   filterTown ? (filter.town = filterTown) : null;
-  filterEdu ? (filter.edu = filterEdu) : null;
+  filterEdu ? (filter = { ...filter, 'letterOfIntent.edu': filterEdu }) : null;
 
   try {
     const result = await contactService.getContactList(
@@ -51,21 +51,19 @@ const getContact = async (req, res) => {
   const { id } = req.query;
 
   try {
-    const result = await contactService.getContact(
-      id
-    );
+    const result = await contactService.getContact(id);
     return res.status(200).json({
-        status: 200,
-        data: result,
-        message: "Successfully got contact"
-    })
-} catch(error) {
+      status: 200,
+      data: result,
+      message: 'Successfully got contact',
+    });
+  } catch (error) {
     return res.status(400).json({ status: 400, message: error.message });
-}
+  }
 };
 
 module.exports = {
   addContact,
   getContactList,
-  getContact
+  getContact,
 };
