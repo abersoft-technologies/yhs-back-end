@@ -35,16 +35,20 @@ const getTownOptions = async () => {
 const getTagsOptions = async () => {
   try {
     const tagsArray = await Corporate.find({}, 'tags');
-    let newArr = [];
+    // let newArr, result = [];
+    let result = [];
     let unique;
     tagsArray.map((item) => {
-      newArr = [...newArr, ...item.tags];
-      unique = [...new Set(newArr)];
+      result = [...result, ...item.tags];
+      unique = [...new Set(result)];
+    });
+    result = unique.map((item) => {
+      return { value: item, label: item };
     });
 
-    return unique;
+    return result;
   } catch (error) {
-    throw Error('Error while trying to fetch education names');
+    throw Error('Error while trying to fetch tags options');
   }
 };
 
