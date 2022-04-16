@@ -1,4 +1,4 @@
-const { Education, Contact } = require('../models');
+const { Education, Contact, Corporate } = require('../models');
 
 const getEduOptions = async () => {
   try {
@@ -32,4 +32,20 @@ const getTownOptions = async () => {
   }
 };
 
-module.exports = { getEduOptions, getTownOptions };
+const getTagsOptions = async () => {
+  try {
+    const tagsArray = await Corporate.find({}, 'tags');
+    let newArr = [];
+    let unique;
+    tagsArray.map((item) => {
+      newArr = [...newArr, ...item.tags];
+      unique = [...new Set(newArr)];
+    });
+
+    return unique;
+  } catch (error) {
+    throw Error('Error while trying to fetch education names');
+  }
+};
+
+module.exports = { getEduOptions, getTownOptions, getTagsOptions };

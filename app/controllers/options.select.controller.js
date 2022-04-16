@@ -24,8 +24,21 @@ const getTownOptions = async (req, res) => {
     return res.status(400).json({ status: 400, message: error.message });
   }
 };
+const getTagsOptions = async (req, res) => {
+  try {
+    const result = await optionsSelectService.getTagsOptions();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully got all tags',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
 
 module.exports = {
   getEduOptions,
   getTownOptions,
+  getTagsOptions,
 };
