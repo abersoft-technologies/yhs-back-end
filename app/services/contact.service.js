@@ -1,4 +1,6 @@
 const { Contact } = require('../models');
+const { Letter } = require('../models');
+
 
 const addContact = async (payload) => {
   try {
@@ -9,6 +11,17 @@ const addContact = async (payload) => {
     return contact;
   } catch (error) {
     throw Error('Error while trying to add contact');
+  }
+};
+const addLetter = async (payload) => {
+  try {
+    const letter = new Letter(payload);
+
+    await letter.save();
+
+    return letter;
+  } catch (error) {
+    throw Error('Error while trying to add letter');
   }
 };
 const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
@@ -92,4 +105,5 @@ module.exports = {
   getContactList,
   getContact,
   updateContact,
+  addLetter
 };
