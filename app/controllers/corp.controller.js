@@ -50,7 +50,7 @@ const getContactsInCorp = async (req, res) => {
     return res.status(200).json({
       status: 200,
       data: result,
-      message: 'Successfully got contacts',
+      message: 'Successfully got corporation',
     });
   } catch (error) {
     return res.status(400).json({ status: 400, message: error.message });
