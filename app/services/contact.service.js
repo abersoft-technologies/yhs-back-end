@@ -24,6 +24,19 @@ const addLetter = async (payload) => {
     throw Error('Error while trying to add letter');
   }
 };
+
+const getLetters = async () => {
+  try {
+    const letters = await Letter.find();
+
+    const data = {
+      letters,
+    };
+    return data;
+  } catch (error) {
+    throw Error('Error while trying to fetch letters');
+  }
+};
 const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
   try {
     const skip = limit * (page - 1);
@@ -103,6 +116,7 @@ const updateContact = async (id, data) => {
 module.exports = {
   addContact,
   getContactList,
+  getLetters,
   getContact,
   updateContact,
   addLetter

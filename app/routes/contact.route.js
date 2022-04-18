@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/', contactController.addContact);
 router.post('/letter', contactController.addLetter);
 router.get('/', contactController.getContactList);
+router.get('/get/letters', contactController.getLetters);
 router.get('/get', contactController.getContact);
 router.put('/:id', contactController.updateContact);
 
