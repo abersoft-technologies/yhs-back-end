@@ -9,6 +9,7 @@ const LetterSchema = new Schema({
     lecture: Boolean,
     studyVisit: Boolean,
     eduBoard: Boolean,
+    contact_id: String
 })
 
 const Letter = mongoose.model("letter", LetterSchema);
