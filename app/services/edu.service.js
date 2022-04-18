@@ -57,8 +57,19 @@ const getOneEdu = async (id) => {
   }
 };
 
+const updateEdu = async (id, data) => {
+  try {
+    const education = await Education.findOneAndUpdate(id, data);
+
+    return education;
+  } catch (error) {
+    throw Error('Error while trying to update education');
+  }
+};
+
 module.exports = {
   addEdu,
   getEdus,
-  getOneEdu
+  getOneEdu,
+  updateEdu,
 };

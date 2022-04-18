@@ -7,8 +7,6 @@ router.post('/add', corpController.addCorp);
 router.get('/getAll', corpController.getCorps);
 router.get('/get', corpController.getCorp);
 router.get('/getContacts', corpController.getContactsInCorp);
-
-
-
+router.put('/:id', corpController.updateCorp);
 
 module.exports = router;

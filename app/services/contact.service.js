@@ -74,14 +74,22 @@ const getContact = async (id) => {
     };
     return data;
   } catch (error) {
-    throw Error('Error while trying to fetch corporate');
+    throw Error('Error while trying to fetch contact');
   }
 };
+const updateContact = async (id, data) => {
+  try {
+    const contact = await Contact.findOneAndUpdate(id, data);
 
-
+    return contact;
+  } catch (error) {
+    throw Error('Error while trying to update contact');
+  }
+};
 
 module.exports = {
   addContact,
   getContactList,
-  getContact
+  getContact,
+  updateContact,
 };
