@@ -91,6 +91,7 @@ const updateContact = async (id, data) => {
 module.exports = {
   addContact,
   getContactList,
+  getLetters,
   getContact,
   updateContact,
 };

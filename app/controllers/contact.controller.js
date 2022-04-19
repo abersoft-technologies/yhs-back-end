@@ -61,6 +61,19 @@ const getContact = async (req, res) => {
     return res.status(400).json({ status: 400, message: error.message });
   }
 };
+
+const getLetters = async (req, res) => {
+  try {
+    const result = await contactService.getLetters();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully got all letters',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
 const updateContact = async (req, res) => {
   const { id } = req.params;
   const body = req.body;
@@ -80,6 +93,7 @@ const updateContact = async (req, res) => {
 module.exports = {
   addContact,
   getContactList,
+  getLetters,
   getContact,
   updateContact,
 };

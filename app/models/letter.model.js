@@ -9,6 +9,10 @@ const LetterSchema = new Schema({
     lecture: Boolean,
     studyVisit: Boolean,
     eduBoard: Boolean,
+    contact :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'contact'
+    }
 })
 
 const Letter = mongoose.model("letter", LetterSchema);
