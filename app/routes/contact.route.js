@@ -4,10 +4,8 @@ const { contactController } = require('../controllers');
 const router = express.Router();
 
 router.post('/', contactController.addContact);
-router.post('/letter', contactController.addLetter);
 router.get('/', contactController.getContactList);
 router.get('/get', contactController.getContact);
 router.put('/:id', contactController.updateContact);
-
 
 module.exports = router;

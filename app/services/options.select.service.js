@@ -35,7 +35,6 @@ const getTownOptions = async () => {
 const getTagsOptions = async () => {
   try {
     const tagsArray = await Corporate.find({}, 'tags');
-    // let newArr, result = [];
     let result = [];
     let unique;
     tagsArray.map((item) => {

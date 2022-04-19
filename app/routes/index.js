@@ -3,7 +3,7 @@ const authRoute = require('./auth.route');
 const contactRoute = require('./contact.route');
 const corpRoute = require('./corp.route');
 const eduRoute = require('./edu.route');
-const optionsRoute = require('./options.select.route');
+const letterRoute = require('./letter.route');
 
 const router = express.Router();
 
@@ -17,16 +17,16 @@ const defaultRoutes = [
     route: contactRoute,
   },
   {
+    path: '/letter',
+    route: letterRoute,
+  },
+  {
     path: '/corp',
     route: corpRoute,
   },
   {
     path: '/edu',
     route: eduRoute,
-  },
-  {
-    path: '/options/select',
-    route: optionsRoute,
   },
 ];
 

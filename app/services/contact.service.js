@@ -1,6 +1,4 @@
 const { Contact } = require('../models');
-const { Letter } = require('../models');
-
 
 const addContact = async (payload) => {
   try {
@@ -13,17 +11,7 @@ const addContact = async (payload) => {
     throw Error('Error while trying to add contact');
   }
 };
-const addLetter = async (payload) => {
-  try {
-    const letter = new Letter(payload);
 
-    await letter.save();
-
-    return letter;
-  } catch (error) {
-    throw Error('Error while trying to add letter');
-  }
-};
 const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
   try {
     const skip = limit * (page - 1);
@@ -92,7 +80,7 @@ const getContact = async (id) => {
 };
 const updateContact = async (id, data) => {
   try {
-    const contact = await Contact.findOneAndUpdate(id, data);
+    const contact = await Contact.findByIdAndUpdate(id, data);
 
     return contact;
   } catch (error) {
@@ -105,5 +93,4 @@ module.exports = {
   getContactList,
   getContact,
   updateContact,
-  addLetter
 };
