@@ -30,6 +30,9 @@ const ContactSchema = new Schema({
     studyVisit: Boolean,
     eduBoard: Boolean,
   },
+  letters: [
+    {type: mongoose.Schema.Types.ObjectId, ref: "letter"}
+  ],
   date: { type: Date, default: Date.now },
 });
 
