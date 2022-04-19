@@ -20,7 +20,7 @@ const getEdus = async (limit = 3, page = 1, queryParam) => {
       ],
     };
 
-    const corpList = await Education.find(queryParam ? findObject : {})
+    const eduList = await Education.find(queryParam ? findObject : {})
       .skip(skip)
       .limit(limit);
     const totalCount = await Education.find(
@@ -36,7 +36,7 @@ const getEdus = async (limit = 3, page = 1, queryParam) => {
         totalItems: count,
         pageSize: limit,
       },
-      corpList,
+      eduList,
     };
     return listData;
   } catch (error) {
