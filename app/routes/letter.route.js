@@ -5,6 +5,8 @@ const router = express.Router();
 
 /* Get all letters */
 router.get('/', letterController.getLetterList);
+/* Get data for all educations letters */
+router.get('/data', letterController.getData);
 /* Post a letter */
 router.post('/', letterController.addLetter);
 /* Post a letter */

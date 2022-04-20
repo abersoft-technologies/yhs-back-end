@@ -58,9 +58,23 @@ const updateLetter = async (req, res) => {
   }
 };
 
+const getData = async (req, res) => {
+  try {
+    const result = await letterService.getData();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully got educations letters data',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
+
 module.exports = {
   getLetterList,
   getLetter,
   addLetter,
   updateLetter,
+  getData,
 };
