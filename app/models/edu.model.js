@@ -21,6 +21,11 @@ const EducationSchema = new Schema({
     type: {
         type: String,
         required: true
+    },
+    goal: {
+        letters: Number,
+        internships: Number,
+        employements: Number,
     }
 })
 
