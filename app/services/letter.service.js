@@ -65,15 +65,21 @@ const getData = async (edus) => {
     };
     educations.forEach((item) => {
       letters = letterList.filter((letter) => letter.edu[0] === item.name);
+
       let totalIntern = letters.reduce((acc, current) => {
+        if (!current.internship) return acc;
         return acc + parseInt(current.internship);
       }, 0);
 
       let totalEmployLow = letters.reduce((acc, current) => {
+        if (!current.employment) return acc;
+
         return acc + parseInt(current.employment);
       }, 0);
 
       let totalEmployHigh = letters.reduce((acc, current) => {
+        if (!current.employment) return acc;
+
         if (current.employment === '1-2') {
           return acc + 2;
         } else if (current.employment === '3-5') {
