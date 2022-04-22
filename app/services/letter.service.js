@@ -45,9 +45,7 @@ const getData = async (edus) => {
   try {
     let educations;
     if (edus) {
-      educations = await Education.find({
-        name: ['Dataingenjör', 'Byggproduktionsledare', 'Logisitker'],
-      });
+      educations = await Education.find({edus});
     } else {
       educations = await Education.find({});
     }
