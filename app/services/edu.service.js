@@ -59,7 +59,7 @@ const getOneEdu = async (id) => {
 
 const updateEdu = async (id, data) => {
   try {
-    const education = await Education.findOneAndUpdate(id, data);
+    const education = await Education.findByIdAndUpdate(id, data);
 
     return education;
   } catch (error) {
