@@ -45,7 +45,7 @@ const getData = async (edus) => {
   try {
     let educations;
     if (edus) {
-      educations = await Education.find({edus});
+      educations = await Education.find({ edus });
     } else {
       educations = await Education.find({});
     }
@@ -81,7 +81,7 @@ const getData = async (edus) => {
         } else if (current.employment === '11-20') {
           return acc + 20;
         } else {
-          return acc + current.employment;
+          return acc + parseInt(current.employment);
         }
       }, 0);
       let lecture = letters.reduce((acc, current) => {
@@ -115,7 +115,10 @@ const getData = async (edus) => {
         education: item,
         totalDataEdu: {
           totalLetters: letters.length,
-          employment: { low: totalEmployLow, high: totalEmployHigh },
+          employment: {
+            low: totalEmployLow,
+            high: totalEmployHigh,
+          },
           internship: totalIntern,
           readEdu,
           contributeEdu,
