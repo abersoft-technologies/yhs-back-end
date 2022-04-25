@@ -10,23 +10,36 @@ const addEdu = async (payload) => {
   }
 };
 
-const getEdus = async (limit = 3, page = 1, queryParam) => {
+const getEdus = async (limit = 3, page = 1, queryParam, filter) => {
   try {
+    let eduList, totalCount, filterOptions;
+
     const skip = limit * (page - 1);
     const findObject = {
       $or: [
         { name: { $regex: queryParam, $options: 'i' } },
         { place: { $regex: queryParam, $options: 'i' } },
+        { branch: { $regex: queryParam, $options: 'i' } },
       ],
     };
 
-    const eduList = await Education.find(queryParam ? findObject : {})
-      .skip(skip)
-      .limit(limit);
-    const totalCount = await Education.find(
-      queryParam ? findObject : {}
-    ).countDocuments();
-    const count = await Education.countDocuments();
+    if (filter) {
+      console.log(filter)
+      eduList = await Education.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit)
+        .and(filter);
+      totalCount = await Education.find(queryParam ? findObject : {})
+        .countDocuments()
+        .and(filter);
+    } else {
+      eduList = await Education.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit);
+      totalCount = await Education.find(
+        queryParam ? findObject : {}
+      ).countDocuments();
+    }
 
     const listData = {
       listValues: {
