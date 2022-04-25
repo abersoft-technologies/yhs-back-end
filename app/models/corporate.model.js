@@ -10,6 +10,10 @@ const CorporateSchema = new Schema({
         type: Array,
         required: true
     },
+    branch: {
+        type: String,
+        required: true,
+    },
     info: {
         type: String,
         required: false
