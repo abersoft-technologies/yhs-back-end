@@ -11,8 +11,10 @@ const addCorp = async (payload) => {
   }
 };
 
-const getCorps = async (limit = 3, page = 1, queryParam) => {
+const getCorps = async (limit = 3, page = 1, queryParam, filter) => {
   try {
+    let corpList, totalCount, filterOptions;
+
     const skip = limit * (page - 1);
     const findObject = {
       $or: [
@@ -22,14 +24,24 @@ const getCorps = async (limit = 3, page = 1, queryParam) => {
       ],
     };
 
-    const corpList = await Corporate.find(queryParam ? findObject : {})
-      .skip(skip)
-      .limit(limit);
-    const totalCount = await Corporate.find(
-      queryParam ? findObject : {}
-    ).countDocuments();
+    /* Check if filter is sent. If true use the and method to filter by filter settings */
+    if (filter) {
+      corpList = await Corporate.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit)
+        .and(filter);
+      totalCount = await Corporate.find(queryParam ? findObject : {})
+        .countDocuments()
+        .and(filter);
+    } else {
+      corpList = await Corporate.find(queryParam ? findObject : {})
+        .skip(skip)
+        .limit(limit);
+      totalCount = await Corporate.find(
+        queryParam ? findObject : {}
+      ).countDocuments();
+    }
     const count = await Corporate.countDocuments();
-
     const listData = {
       listValues: {
         page: page,

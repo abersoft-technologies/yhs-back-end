@@ -22,6 +22,10 @@ const EducationSchema = new Schema({
         type: String,
         required: true
     },
+    branch: {
+        type: String,
+        required: true,
+    },
     goal: {
         letters: Number,
         internships: Number,
