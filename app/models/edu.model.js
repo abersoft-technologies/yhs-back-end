@@ -16,7 +16,7 @@ const EducationSchema = new Schema({
     },
     managementList: {
         type: Array,
-        required: true
+        required: false
     },
     type: {
         type: String,
