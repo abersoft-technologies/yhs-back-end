@@ -16,10 +16,10 @@ const addCorp = async (req, res) => {
 };
 
 const getCorps = async (req, res) => {
-  const { limit, page, queryParams, filterBranch = '', filterTags = '' } = req.query;
+  const { limit, page, queryParams, filterBranchCorp = '', filterTags = '' } = req.query;
 
   let filter = {};
-  filterBranch ? (filter.branch = filterBranch) : null;
+  filterBranchCorp ? (filter.branch = filterBranchCorp) : null;
   filterTags ? (filter.tags = filterTags) : null;
 
   try {
