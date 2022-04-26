@@ -16,17 +16,17 @@ const getEduOptions = async () => {
 const getTownOptions = async () => {
   try {
     const townsArray = await Contact.find({}, 'town');
-
     const optionsArray = townsArray
       .filter(
         (value, index, self) =>
           index === self.findIndex((t) => t.town === value.town)
       )
       .map((item) => {
+        if(!item.town) return;
         return { value: item.town, label: item.town };
       });
-
-    return optionsArray;
+      const newArray = optionsArray.filter(x => x != null)
+    return newArray;
   } catch (error) {
     throw Error('Error while trying to fetch education names');
   }
@@ -53,18 +53,20 @@ const getTagsOptions = async () => {
 
 const getBranchEduOptions = async () => {
   try {
-    const branchsArray = await Education.find({}, 'branch');
 
+    const branchsArray = await Education.find({}, 'branch');
     const optionsArray = branchsArray.filter(
       (value, index, self) =>
         index === self.findIndex((t) => t.branch === value.branch)
     )
     .map((item) => {
+      if(!item.branch) return;
       return { value: item.branch, label: item.branch };
     });
-
-    return optionsArray;
+    const newArray = optionsArray.filter(x => x != null)
+    return newArray;
   } catch (error) {
+
     console.error(error)
     throw Error('Error while trying to fetch branch options');
   }
@@ -79,10 +81,11 @@ const getBranchCorpOptions = async () => {
         index === self.findIndex((t) => t.branch === value.branch)
     )
     .map((item) => {
+      if(!item.branch) return;
       return { value: item.branch, label: item.branch };
     });
-
-    return optionsArray;
+    const newArray = optionsArray.filter(x => x != null)
+    return newArray;
   } catch (error) {
     console.error(error)
     throw Error('Error while trying to fetch branch options');
