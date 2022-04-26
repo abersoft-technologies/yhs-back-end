@@ -37,8 +37,36 @@ const getTagsOptions = async (req, res) => {
   }
 };
 
+const getBranchEduOptions = async (req, res) => {
+  try {
+    const result = await optionsSelectService.getBranchEduOptions();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully got all branches',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
+
+const getBranchCorpOptions = async (req, res) => {
+  try {
+    const result = await optionsSelectService.getBranchCorpOptions();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully got all branches',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
+
 module.exports = {
   getEduOptions,
   getTownOptions,
   getTagsOptions,
+  getBranchEduOptions,
+  getBranchCorpOptions
 };

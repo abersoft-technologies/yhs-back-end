@@ -51,4 +51,43 @@ const getTagsOptions = async () => {
   }
 };
 
-module.exports = { getEduOptions, getTownOptions, getTagsOptions };
+const getBranchEduOptions = async () => {
+  try {
+    const branchsArray = await Education.find({}, 'branch');
+
+    const optionsArray = branchsArray.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.branch === value.branch)
+    )
+    .map((item) => {
+      return { value: item.branch, label: item.branch };
+    });
+
+    return optionsArray;
+  } catch (error) {
+    console.error(error)
+    throw Error('Error while trying to fetch branch options');
+  }
+};
+
+const getBranchCorpOptions = async () => {
+  try {
+    const branchsArray = await Corporate.find({}, 'branch');
+
+    const optionsArray = branchsArray.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.branch === value.branch)
+    )
+    .map((item) => {
+      return { value: item.branch, label: item.branch };
+    });
+
+    return optionsArray;
+  } catch (error) {
+    console.error(error)
+    throw Error('Error while trying to fetch branch options');
+  }
+};
+
+
+module.exports = { getEduOptions, getTownOptions, getTagsOptions, getBranchEduOptions, getBranchCorpOptions };
