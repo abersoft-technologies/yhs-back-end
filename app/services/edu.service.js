@@ -40,6 +40,7 @@ const getEdus = async (limit = 3, page = 1, queryParam, filter) => {
         queryParam ? findObject : {}
       ).countDocuments();
     }
+    const count = await Education.countDocuments();
 
     const listData = {
       listValues: {
