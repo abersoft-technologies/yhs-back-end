@@ -7,6 +7,7 @@ router.post('/', contactController.addContact);
 router.get('/', contactController.getContactList);
 router.get('/get/letters', contactController.getLetters);
 router.get('/get', contactController.getContact);
+router.get('/get/newContacts', contactController.getNewContacts);
 router.put('/:id', contactController.updateContact);
 
 module.exports = router;

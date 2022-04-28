@@ -89,11 +89,26 @@ const updateContact = async (req, res) => {
     return res.status(400).json({ status: 400, message: error.message });
   }
 };
+const getNewContacts = async (req, res) => {
+  // const { id } = req.params;
+  // const body = req.body;
 
+  try {
+    const result = await contactService.getNewContacts();
+    return res.status(200).json({
+      status: 200,
+      data: result,
+      message: 'Successfully updated contact',
+    });
+  } catch (error) {
+    return res.status(400).json({ status: 400, message: error.message });
+  }
+};
 module.exports = {
   addContact,
   getContactList,
   getLetters,
   getContact,
   updateContact,
+  getNewContacts
 };

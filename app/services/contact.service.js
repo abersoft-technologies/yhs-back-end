@@ -87,10 +87,27 @@ const updateContact = async (id, data) => {
     throw Error('Error while trying to update contact');
   }
 };
+const getNewContacts = async () => {
+  try {
+    const contacts = await Contact.find({status: "Ny kontakt"});
+    console.log(contacts)
+    const count = await Contact.find({status: "Ny kontakt"}).countDocuments();
+
+    const data = {
+      data: contacts,
+      count: count,
+    }
+
+    return data;
+  } catch (error) {
+    throw Error('Error while trying to update contact');
+  }
+};
 
 module.exports = {
   addContact,
   getContactList,
   getContact,
   updateContact,
+  getNewContacts
 };
