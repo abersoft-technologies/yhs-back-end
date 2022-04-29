@@ -4,3 +4,5 @@ module.exports.corpService = require('./corp.service');
 module.exports.eduService = require('./edu.service');
 module.exports.optionsSelectService = require('./options.select.service');
 module.exports.letterService = require('./letter.service');
+module.exports.organizationService = require('./organization.service');
+

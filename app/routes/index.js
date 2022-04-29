@@ -4,6 +4,7 @@ const contactRoute = require('./contact.route');
 const corpRoute = require('./corp.route');
 const eduRoute = require('./edu.route');
 const letterRoute = require('./letter.route');
+const orgRoute = require('./org.route');
 const optionsRoute = require('./options.select.route');
 
 
@@ -33,6 +34,10 @@ const defaultRoutes = [
   {
     path: '/options/select',
     route: optionsRoute,
+  },
+  {
+    path: '/org',
+    route: orgRoute,
   },
 ];
 
