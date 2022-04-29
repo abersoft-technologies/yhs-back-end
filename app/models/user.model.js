@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     default: Date.now(),
   },
   orgId: {
-    type: Number,
+    type: String,
     required: false,
   }
 })

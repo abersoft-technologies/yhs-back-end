@@ -7,7 +7,7 @@ const OrganizationSchema = new Schema({
         required: true
     },
     orgId: {
-        type: Number,
+        type: String,
         required: true
     },
     users: {
