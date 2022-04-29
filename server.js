@@ -20,6 +20,7 @@ app.use(
     path: [
       { url: '/auth/login', methods: ['POST'] },
       { url: '/auth/signup', methods: ['POST'] },
+      { url: '/org/add', methods: ['POST'] },
       { url: '/refresh', methods: ['POST'] },
     ],
   })
