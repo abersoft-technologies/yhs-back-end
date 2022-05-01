@@ -30,6 +30,10 @@ const EducationSchema = new Schema({
         letters: Number,
         internships: Number,
         employements: Number,
+    },
+    person: {
+        type: String,
+        required: true,
     }
 })
 
