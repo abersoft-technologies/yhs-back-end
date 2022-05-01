@@ -1,12 +1,16 @@
 const { Organization } = require("../models")
 
-const addOrg = async (payload) => {
+const addOrg = async (payload, orgName) => {
     try {
-      const org = new Organization(payload);
-
-      await org.save();
-
-      return org;
+      const existingOrg = Organization.find({name: orgName})
+      if(existingOrg) {
+        existingOrg.update(payload)
+        return {text: "Updated org"}
+      } else {
+        const org = new Organization(payload);
+        await org.save();
+        return org;
+      }
     } catch (error) {
         console.error(error)
       throw Error('Error while trying to add organization');
