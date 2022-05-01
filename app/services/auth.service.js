@@ -24,7 +24,7 @@ const login = async (email, password) => {
 };
 
 const signup = async (userData) => {
-  const { firstName, lastName, email, password } = userData;
+  const { firstName, lastName, email, password, orgId } = userData;
   try {
     /* Check if user with inputed email exists */
     let user = await User.findOne({ email: userData.email });
@@ -37,6 +37,7 @@ const signup = async (userData) => {
       lastName,
       email,
       password,
+      orgId
     });
 
     // Encrypt password
