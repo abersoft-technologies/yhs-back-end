@@ -16,14 +16,14 @@ const addCorp = async (req, res) => {
 };
 
 const getCorps = async (req, res) => {
-  const { limit, page, queryParams, filterBranchCorp = '', filterTags = '' } = req.query;
+  const { limit, page, queryParams, filterBranchCorp = '', filterTags = '', orgId = '' } = req.query;
 
   let filter = {};
   filterBranchCorp ? (filter.branch = filterBranchCorp) : null;
   filterTags ? (filter.tags = filterTags) : null;
 
   try {
-    const result = await corpService.getCorps(limit, page, queryParams, filter);
+    const result = await corpService.getCorps(limit, page, queryParams, filter, orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -49,9 +49,9 @@ const getCorp = async (req, res) => {
 };
 
 const getContactsInCorp = async (req, res) => {
-  const { corporate } = req.query;
+  const { corporate, orgId } = req.query;
   try {
-    const result = await corpService.getContactsInCorp(corporate);
+    const result = await corpService.getContactsInCorp(corporate, orgId);
     return res.status(200).json({
       status: 200,
       data: result,

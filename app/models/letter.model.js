@@ -12,6 +12,10 @@ const LetterSchema = new Schema({
     contact :{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'contact'
+    },
+    orgId: {
+        type: String,
+        required: true
     }
 })
 

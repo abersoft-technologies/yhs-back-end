@@ -16,13 +16,13 @@ const addEdu = async (req, res) => {
 };
 
 const getEdus = async (req, res) => {
-  const { limit, page, queryParams, filterBranchEdu = '', filterType = '' } = req.query;
+  const { limit, page, queryParams, filterBranchEdu = '', filterType = '', orgId = '' } = req.query;
 
   let filter = {};
   filterBranchEdu ? (filter.branch = filterBranchEdu) : null;
   filterType ? (filter.type = filterType) : null;
   try {
-    const result = await eduService.getEdus(limit, page, queryParams, filter);
+    const result = await eduService.getEdus(limit, page, queryParams, filter, orgId);
     return res.status(200).json({
       status: 200,
       data: result,

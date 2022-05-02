@@ -1,8 +1,8 @@
 const { Letter, Education } = require('../models');
 
-const getLetterList = async () => {
+const getLetterList = async (orgId) => {
   try {
-    const result = await Letter.find({});
+    const result = await Letter.find({}).and({orgId: orgId});
 
     return result;
   } catch (error) {
@@ -41,15 +41,15 @@ const updateLetter = async (id, data) => {
   }
 };
 
-const getData = async (edus) => {
+const getData = async (edus, orgId) => {
   try {
     let educations;
     if (edus) {
-      educations = await Education.find({ edus });
+      educations = await Education.find({ edus }).and({orgId: orgId});
     } else {
-      educations = await Education.find({});
+      educations = await Education.find({}).and({orgId: orgId});
     }
-    const letterList = await Letter.find({});
+    const letterList = await Letter.find({}).and({orgId: orgId});
 
     let letters = [];
     let result = [];

@@ -12,13 +12,14 @@ const addContact = async (payload) => {
   }
 };
 
-const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
+const getContactList = async (limit = 3, page = 1, queryParam = '', filter, orgId) => {
   try {
     const skip = limit * (page - 1);
     let contactList, totalCount, filterOptions;
 
     /* find contact by searchQuery string */
     const findObject = {
+      // $and: [{orgId: orgId}],
       $or: [
         { firstName: { $regex: queryParam, $options: 'i' } },
         { lastName: { $regex: queryParam, $options: 'i' } },
@@ -31,22 +32,27 @@ const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
       ],
     };
 
+    console.log("orgId", orgId)
+
     /* Check if filter is sent. If true use the and method to filter by filter settings */
-    if (filter) {
+
+    if(filter === {}) {
+      console.log("inget filter")
       contactList = await Contact.find(queryParam ? findObject : {})
         .skip(skip)
         .limit(limit)
-        .and(filter);
-      totalCount = await Contact.find(queryParam ? findObject : {})
-        .countDocuments()
-        .and(filter);
-    } else {
-      contactList = await Contact.find(queryParam ? findObject : {})
-        .skip(skip)
-        .limit(limit);
+        .and({orgId: orgId});
       totalCount = await Contact.find(
         queryParam ? findObject : {}
-      ).countDocuments();
+      ).countDocuments().and({orgId: orgId});
+    } else {
+      contactList = await Contact.find(queryParam ? findObject : {})
+      .skip(skip)
+      .limit(limit)
+      .and({...filter, orgId: orgId});
+    totalCount = await Contact.find(queryParam ? findObject : {})
+      .countDocuments()
+      .and({...filter, orgId: orgId});
     }
 
     const count = await Contact.countDocuments();
@@ -62,6 +68,7 @@ const getContactList = async (limit = 3, page = 1, queryParam = '', filter) => {
     };
     return listData;
   } catch (error) {
+    console.log(error)
     throw Error('Error while trying to fetch contacts');
   }
 };
@@ -87,11 +94,11 @@ const updateContact = async (id, data) => {
     throw Error('Error while trying to update contact');
   }
 };
-const getNewContacts = async () => {
+const getNewContacts = async (orgId) => {
   try {
-    const contacts = await Contact.find({status: "Ny kontakt"});
+    const contacts = await Contact.find({status: "Ny kontakt"}).and({orgId: orgId});
     console.log(contacts)
-    const count = await Contact.find({status: "Ny kontakt"}).countDocuments();
+    const count = await Contact.find({status: "Ny kontakt"}).countDocuments().and({orgId: orgId});
 
     const data = {
       data: contacts,

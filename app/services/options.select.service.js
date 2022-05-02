@@ -1,8 +1,8 @@
 const { Education, Contact, Corporate } = require('../models');
 
-const getEduOptions = async () => {
+const getEduOptions = async (orgId) => {
   try {
-    const namesArray = await Education.find({}, 'name');
+    const namesArray = await Education.find({}, 'name').and({orgId: orgId});
 
     const optionsArray = namesArray.map((item) => {
       return { value: item.name, label: item.name };
@@ -13,9 +13,9 @@ const getEduOptions = async () => {
     throw Error('Error while trying to fetch education names');
   }
 };
-const getTownOptions = async () => {
+const getTownOptions = async (orgId) => {
   try {
-    const townsArray = await Contact.find({}, 'town');
+    const townsArray = await Contact.find({}, 'town').and({orgId: orgId});
     const optionsArray = townsArray
       .filter(
         (value, index, self) =>
@@ -32,9 +32,9 @@ const getTownOptions = async () => {
   }
 };
 
-const getTagsOptions = async () => {
+const getTagsOptions = async (orgId) => {
   try {
-    const tagsArray = await Corporate.find({}, 'tags');
+    const tagsArray = await Corporate.find({}, 'tags').and({orgId: orgId});
     let result = [];
     let unique;
     tagsArray.map((item) => {
@@ -51,10 +51,10 @@ const getTagsOptions = async () => {
   }
 };
 
-const getBranchEduOptions = async () => {
+const getBranchEduOptions = async (orgId) => {
   try {
 
-    const branchsArray = await Education.find({}, 'branch');
+    const branchsArray = await Education.find({}, 'branch').and({orgId: orgId});
     const optionsArray = branchsArray.filter(
       (value, index, self) =>
         index === self.findIndex((t) => t.branch === value.branch)
@@ -72,9 +72,9 @@ const getBranchEduOptions = async () => {
   }
 };
 
-const getBranchCorpOptions = async () => {
+const getBranchCorpOptions = async (orgId) => {
   try {
-    const branchsArray = await Corporate.find({}, 'branch');
+    const branchsArray = await Corporate.find({}, 'branch').and({orgId: orgId});
 
     const optionsArray = branchsArray.filter(
       (value, index, self) =>

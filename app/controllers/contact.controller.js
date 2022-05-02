@@ -24,6 +24,7 @@ const getContactList = async (req, res) => {
     filterStatus = '',
     filterEdu = '',
     filterTown = '',
+    orgId = '',
   } = req.query;
   let filter = {};
   filterStatus ? (filter.status = filterStatus) : null;
@@ -35,7 +36,8 @@ const getContactList = async (req, res) => {
       limit,
       page,
       queryParams,
-      filter
+      filter,
+      orgId
     );
     return res.status(200).json({
       status: 200,
@@ -90,15 +92,15 @@ const updateContact = async (req, res) => {
   }
 };
 const getNewContacts = async (req, res) => {
-  // const { id } = req.params;
+  const { orgId } = req.query;
   // const body = req.body;
 
   try {
-    const result = await contactService.getNewContacts();
+    const result = await contactService.getNewContacts(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
-      message: 'Successfully updated contact',
+      message: 'Successfully got new contacts',
     });
   } catch (error) {
     return res.status(400).json({ status: 400, message: error.message });

@@ -17,6 +17,9 @@ const CorporateSchema = new Schema({
     info: {
         type: String,
         required: false
+    },
+    orgId: {
+        type: String
     }
 })
 

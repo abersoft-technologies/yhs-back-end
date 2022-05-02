@@ -34,6 +34,10 @@ const ContactSchema = new Schema({
     {type: mongoose.Schema.Types.ObjectId, ref: "letter"}
   ],
   date: { type: Date, default: Date.now },
+  orgId: {
+    type: String,
+    required: true
+},
 });
 
 const Contact = mongoose.model('contact', ContactSchema);

@@ -11,7 +11,7 @@ const addCorp = async (payload) => {
   }
 };
 
-const getCorps = async (limit = 3, page = 1, queryParam, filter) => {
+const getCorps = async (limit = 3, page = 1, queryParam, filter, orgId) => {
   try {
     let corpList, totalCount, filterOptions;
 
@@ -29,17 +29,17 @@ const getCorps = async (limit = 3, page = 1, queryParam, filter) => {
       corpList = await Corporate.find(queryParam ? findObject : {})
         .skip(skip)
         .limit(limit)
-        .and(filter);
+        .and({...filter, orgId: orgId});
       totalCount = await Corporate.find(queryParam ? findObject : {})
         .countDocuments()
-        .and(filter);
+       .and({...filter, orgId: orgId})
     } else {
       corpList = await Corporate.find(queryParam ? findObject : {})
         .skip(skip)
-        .limit(limit);
+        .limit(limit).and({orgId: orgId});
       totalCount = await Corporate.find(
         queryParam ? findObject : {}
-      ).countDocuments();
+      ).countDocuments().and({orgId: orgId});
     }
     const count = await Corporate.countDocuments();
     const listData = {
@@ -71,11 +71,11 @@ const getOneCorp = async (id) => {
   }
 };
 
-const getContactsInCorp = async (corporate) => {
+const getContactsInCorp = async (corporate, orgId) => {
   try {
     const findObject = { company: { $regex: `${corporate}`, $options: 'i' } };
 
-    const contacts = await Contact.find(findObject);
+    const contacts = await Contact.find(findObject).and({orgId: orgId});
     const data = {
       contacts,
     };

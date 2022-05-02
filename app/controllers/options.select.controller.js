@@ -1,8 +1,9 @@
 const { optionsSelectService } = require('../services');
 
 const getEduOptions = async (req, res) => {
+  const { orgId = '' } = req.query;
   try {
-    const result = await optionsSelectService.getEduOptions();
+    const result = await optionsSelectService.getEduOptions(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -13,8 +14,10 @@ const getEduOptions = async (req, res) => {
   }
 };
 const getTownOptions = async (req, res) => {
+  const { orgId = '' } = req.query;
+
   try {
-    const result = await optionsSelectService.getTownOptions();
+    const result = await optionsSelectService.getTownOptions(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -25,8 +28,10 @@ const getTownOptions = async (req, res) => {
   }
 };
 const getTagsOptions = async (req, res) => {
+  const { orgId = '' } = req.query;
+
   try {
-    const result = await optionsSelectService.getTagsOptions();
+    const result = await optionsSelectService.getTagsOptions(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -38,8 +43,10 @@ const getTagsOptions = async (req, res) => {
 };
 
 const getBranchEduOptions = async (req, res) => {
+  const { orgId = '' } = req.query;
+
   try {
-    const result = await optionsSelectService.getBranchEduOptions();
+    const result = await optionsSelectService.getBranchEduOptions(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -51,8 +58,10 @@ const getBranchEduOptions = async (req, res) => {
 };
 
 const getBranchCorpOptions = async (req, res) => {
+  const { orgId = '' } = req.query;
+
   try {
-    const result = await optionsSelectService.getBranchCorpOptions();
+    const result = await optionsSelectService.getBranchCorpOptions(orgId);
     return res.status(200).json({
       status: 200,
       data: result,

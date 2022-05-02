@@ -34,7 +34,11 @@ const EducationSchema = new Schema({
     person: {
         type: String,
         required: true,
-    }
+    },
+    orgId: {
+        type: String,
+        required: true
+    },
 })
 
 const Education = mongoose.model("education", EducationSchema);
