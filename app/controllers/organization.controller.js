@@ -2,11 +2,16 @@ const { organizationService } = require('../services');
 
 
 const addOrg = async (req, res) => {
-    const data = req.body;
-    const {orgName} = req.query;
+    const {name, orgId, users} = req.body;
+
+    const data = {
+      name,
+      orgId,
+      users
+    }
 
     try {
-      const result = await organizationService.addOrg(data, orgName);
+      const result = await organizationService.addOrg(data, name);
       return res.status(200).json({
         status: 200,
         data: result,
