@@ -24,8 +24,8 @@ const getContactList = async (req, res) => {
     filterStatus = '',
     filterEdu = '',
     filterTown = '',
-    orgId = '',
   } = req.query;
+  const orgId = req.headers['orgId'];
   let filter = {};
   filterStatus ? (filter.status = filterStatus) : null;
   filterTown ? (filter.town = filterTown) : null;
@@ -65,8 +65,9 @@ const getContact = async (req, res) => {
 };
 
 const getLetters = async (req, res) => {
+  const orgId = req.headers['orgId'];
   try {
-    const result = await contactService.getLetters();
+    const result = await contactService.getLetters(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
@@ -92,7 +93,8 @@ const updateContact = async (req, res) => {
   }
 };
 const getNewContacts = async (req, res) => {
-  const { orgId } = req.query;
+  const orgId = req.headers['orgId'];
+
   // const body = req.body;
 
   try {

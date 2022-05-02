@@ -1,7 +1,7 @@
 const { optionsSelectService } = require('../services');
 
 const getEduOptions = async (req, res) => {
-  const { orgId = '' } = req.query;
+  const orgId = req.headers['orgId'];
   try {
     const result = await optionsSelectService.getEduOptions(orgId);
     return res.status(200).json({
@@ -14,7 +14,7 @@ const getEduOptions = async (req, res) => {
   }
 };
 const getTownOptions = async (req, res) => {
-  const { orgId = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   try {
     const result = await optionsSelectService.getTownOptions(orgId);
@@ -28,7 +28,7 @@ const getTownOptions = async (req, res) => {
   }
 };
 const getTagsOptions = async (req, res) => {
-  const { orgId = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   try {
     const result = await optionsSelectService.getTagsOptions(orgId);
@@ -43,7 +43,7 @@ const getTagsOptions = async (req, res) => {
 };
 
 const getBranchEduOptions = async (req, res) => {
-  const { orgId = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   try {
     const result = await optionsSelectService.getBranchEduOptions(orgId);
@@ -58,7 +58,7 @@ const getBranchEduOptions = async (req, res) => {
 };
 
 const getBranchCorpOptions = async (req, res) => {
-  const { orgId = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   try {
     const result = await optionsSelectService.getBranchCorpOptions(orgId);

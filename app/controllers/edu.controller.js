@@ -16,7 +16,8 @@ const addEdu = async (req, res) => {
 };
 
 const getEdus = async (req, res) => {
-  const { limit, page, queryParams, filterBranchEdu = '', filterType = '', orgId = '' } = req.query;
+  const { limit, page, queryParams, filterBranchEdu = '', filterType = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   let filter = {};
   filterBranchEdu ? (filter.branch = filterBranchEdu) : null;

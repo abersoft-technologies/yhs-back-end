@@ -16,7 +16,8 @@ const addCorp = async (req, res) => {
 };
 
 const getCorps = async (req, res) => {
-  const { limit, page, queryParams, filterBranchCorp = '', filterTags = '', orgId = '' } = req.query;
+  const { limit, page, queryParams, filterBranchCorp = '', filterTags = '' } = req.query;
+  const orgId = req.headers['orgId'];
 
   let filter = {};
   filterBranchCorp ? (filter.branch = filterBranchCorp) : null;
@@ -49,7 +50,8 @@ const getCorp = async (req, res) => {
 };
 
 const getContactsInCorp = async (req, res) => {
-  const { corporate, orgId } = req.query;
+  const { corporate } = req.query;
+  const orgId = req.headers['orgId'];
   try {
     const result = await corpService.getContactsInCorp(corporate, orgId);
     return res.status(200).json({
