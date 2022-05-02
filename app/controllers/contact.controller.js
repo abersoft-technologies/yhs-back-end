@@ -65,7 +65,7 @@ const getContact = async (req, res) => {
 };
 
 const getLetters = async (req, res) => {
-  const orgId = req.headers['orgId'];
+  const orgId = req.headers['org-id'];
   try {
     const result = await contactService.getLetters(orgId);
     return res.status(200).json({
@@ -93,7 +93,7 @@ const updateContact = async (req, res) => {
   }
 };
 const getNewContacts = async (req, res) => {
-  const orgId = req.headers['orgId'];
+  const orgId = req.headers['org-id'];
 
   // const body = req.body;
 

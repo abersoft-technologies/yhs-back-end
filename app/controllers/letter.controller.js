@@ -15,7 +15,7 @@ const addLetter = async (req, res) => {
 };
 const getLetterList = async (req, res) => {
   const { limit, page } = req.query;
-  const orgId = req.headers['orgId'];
+  const orgId = req.headers['org-id'];
   try {
     const result = await letterService.getLetterList(limit, page, orgId);
     return res.status(200).json({
