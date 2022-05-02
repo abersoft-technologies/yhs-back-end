@@ -25,7 +25,7 @@ const getContactList = async (req, res) => {
     filterEdu = '',
     filterTown = '',
   } = req.query;
-  const orgId = req.headers['orgId'];
+  const orgId = req.headers['org-id'];
   let filter = {};
   filterStatus ? (filter.status = filterStatus) : null;
   filterTown ? (filter.town = filterTown) : null;
