@@ -47,9 +47,9 @@ const getData = async (edus, orgId) => {
     if (edus) {
       educations = await Education.find({ edus }).and({orgId: orgId});
     } else {
-      educations = await Education.find({}).and({orgId: orgId});
+      educations = await Education.find({orgId: orgId});
     }
-    const letterList = await Letter.find({}).and({orgId: orgId});
+    const letterList = await Letter.find({orgId: orgId});
 
     let letters = [];
     let result = [];
