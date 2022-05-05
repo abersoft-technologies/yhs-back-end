@@ -60,8 +60,10 @@ const updateLetter = async (req, res) => {
 };
 
 const getData = async (req, res) => {
+  const orgId = req.headers['org-id'];
+
   try {
-    const result = await letterService.getData();
+    const result = await letterService.getData(orgId);
     return res.status(200).json({
       status: 200,
       data: result,
