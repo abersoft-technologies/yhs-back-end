@@ -22,13 +22,13 @@ function authenticateToken(req, res, next) {
 
 function generateAccessToken(email) {
   return jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '10m',
+    expiresIn: '120m',
   });
 }
 
 function generateRefreshAccessToken(email) {
   return jwt.sign({ email }, process.env.REFRESH_TOKEN, {
-    expiresIn: '120min',
+    expiresIn: '120m',
   });
 }
 
