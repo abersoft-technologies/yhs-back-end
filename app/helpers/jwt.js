@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
   const token = req.headers['x-access-token'];
-  //   console.log(req.headers);
-  //   console.log(token);
+
   if (token === null) {
     return res.status(403).send({ message: 'Token not provided!' });
   }
@@ -16,7 +15,7 @@ function authenticateToken(req, res, next) {
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ message: 'Token is not valid' });
+    res.status(401).json({ success: false, message: 'Token is not valid' });
   }
 }
 

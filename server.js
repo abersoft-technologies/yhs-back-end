@@ -42,8 +42,6 @@ app.use(errors.errorHandler);
 app.post('/refresh', (req, res) => {
   const { email, refreshToken } = req.body;
 
-  // console.log(email, refreshToken);
-
   const isValid = auth.verifyRefresh(email, refreshToken);
 
   if (!isValid) {
@@ -55,12 +53,12 @@ app.post('/refresh', (req, res) => {
 
   return res.status(200).json({ success: true, accessToken });
 });
+app.post('/token', (req, res) => {
+  return res.status(200).json({ success: true, message: 'Token is valid' });
+});
 
 const PORT = process.env.PORT || 8080;
-/* app.listen(80, () => {
-  console.log('Enable on port 80')
 
-}) */
 app.listen(PORT, () => {
   console.log(`Server is running on PORT: ${PORT}`);
 });
