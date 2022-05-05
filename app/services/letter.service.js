@@ -2,7 +2,7 @@ const { Letter, Education } = require('../models');
 
 const getLetterList = async (orgId) => {
   try {
-    const result = await Letter.find({}).and({ orgId: orgId });
+    const result = await Letter.find({orgId: orgId});
 
     return result;
   } catch (error) {
