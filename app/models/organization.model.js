@@ -14,6 +14,8 @@ const OrganizationSchema = new Schema({
         type: Array,
         required: true,
     },
+    date: { type: Date, default: Date.now },
+
 })
 
 const Organization = mongoose.model("organization", OrganizationSchema);

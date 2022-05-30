@@ -25,7 +25,9 @@ const UserSchema = new Schema({
   orgId: {
     type: String,
     required: false,
-  }
+  },
+  date: { type: Date, default: Date.now },
+
 })
 
 UserSchema.set('toJSON', {

@@ -20,7 +20,8 @@ const CorporateSchema = new Schema({
     },
     orgId: {
         type: String
-    }
+    },
+    date: { type: Date, default: Date.now },
 })
 
 const Corporate = mongoose.model("corporate", CorporateSchema);

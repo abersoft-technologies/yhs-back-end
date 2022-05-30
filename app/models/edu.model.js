@@ -39,6 +39,7 @@ const EducationSchema = new Schema({
         type: String,
         required: true
     },
+    date: { type: Date, default: Date.now },
 })
 
 const Education = mongoose.model("education", EducationSchema);

@@ -16,7 +16,9 @@ const LetterSchema = new Schema({
     orgId: {
         type: String,
         required: true
-    }
+    },
+    date: { type: Date, default: Date.now },
+
 })
 
 const Letter = mongoose.model("letter", LetterSchema);
