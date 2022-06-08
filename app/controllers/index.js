@@ -5,4 +5,4 @@ module.exports.corpController = require('./corp.controller');
 module.exports.eduController = require('./edu.controller');
 module.exports.optionsSelectController = require('./options.select.controller');
 module.exports.orgController = require('./organization.controller');
-
+module.exports.userController = require('./user.controller');

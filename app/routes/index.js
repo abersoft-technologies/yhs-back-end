@@ -6,6 +6,7 @@ const eduRoute = require('./edu.route');
 const letterRoute = require('./letter.route');
 const orgRoute = require('./org.route');
 const optionsRoute = require('./options.select.route');
+const userRoute = require('./user.route');
 
 
 const router = express.Router();
@@ -38,6 +39,10 @@ const defaultRoutes = [
   {
     path: '/org',
     route: orgRoute,
+  },
+  {
+    path: '/user',
+    route: userRoute,
   },
 ];
 
